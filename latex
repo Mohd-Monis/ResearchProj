@@ -17,37 +17,39 @@
 }
 
 \author{
-\IEEEauthorblockN{Mohd Monis}
-\IEEEauthorblockA{
-\textit{Department of Computer Science} \\
-\textit{Delhi Technological University} \\
-Delhi, India \\
+\begin{tabular}{c c}
+\parbox{0.45\textwidth}{\centering
+\textbf{Mohd Monis}\\
+\textit{Department of Computer Science}\\
+\textit{Delhi Technological University}\\
+Delhi, India\\
 email
 }
-\and
-\IEEEauthorblockN{Animesh Gupta}
-\IEEEauthorblockA{
-\textit{Department of Computer Science} \\
-\textit{Delhi Technological University} \\
-Delhi, India \\
+&
+\parbox{0.45\textwidth}{\centering
+\textbf{Animesh Gupta}\\
+\textit{Department of Computer Science}\\
+\textit{Delhi Technological University}\\
+Delhi, India\\
 email
 }
-\and
-\IEEEauthorblockN{Krishna Agarwal}
-\IEEEauthorblockA{
-\textit{Department of Computer Science} \\
-\textit{Delhi Technological University} \\
-Delhi, India \\
+\\[1.2cm]
+\parbox{0.45\textwidth}{\centering
+\textbf{Krishna Agarwal}\\
+\textit{Department of Computer Science}\\
+\textit{Delhi Technological University}\\
+Delhi, India\\
 email
 }
-\and
-\IEEEauthorblockN{Snigdha Agrawal}
-\IEEEauthorblockA{
-\textit{Department of Computer Science} \\
-\textit{Delhi Technological University} \\
-Delhi, India \\
+&
+\parbox{0.45\textwidth}{\centering
+\textbf{Snigdha Agrawal}\\
+\textit{Department of Computer Science}\\
+\textit{Delhi Technological University}\\
+Delhi, India\\
 email
 }
+\end{tabular}
 }
 \maketitle
 

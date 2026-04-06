@@ -116,17 +116,18 @@ Let $G = (V, E)$ be a graph, where $V$ is the set of nodes and $E$ is the set of
 \vspace{0.5em}
 
 We follow the standard encoder–decoder framework for link prediction. An encoder $f(\cdot)$ maps each node to a low-dimensional embedding:
-\[
-z_v = f(x_v, G)
-\]
+\begin{equation}
+    z_v = f(x_v, G)
+\end{equation}
+
 where $z_v \in \mathbb{R}^d$ is the embedding of node $v$ containing structural information.
 
 \vspace{0.5em}
 
 A decoder $g(\cdot)$ then takes a pair of node embeddings and outputs a score representing the likelihood of an edge:
-\[
+\begin{equation}
 \hat{y}_{uv} = g(z_u, z_v)
-\]
+\end{equation}
 
 \vspace{0.5em}
 
@@ -140,13 +141,13 @@ To compute node embeddings, we use the GraphSAGE \cite{hamilton2017graphsage} en
 \vspace{0.5em}
 
 The node representations are updated as:
-\[
+\begin{equation}
 h_v^{(1)} = \sigma \left( W_1 \cdot \text{AGG}(\{ x_u : u \in \mathcal{N}(v) \}) \right)
-\]
+\end{equation}
 
-\[
+\begin{equation}
 h_v^{(2)} = W_2 \cdot \text{AGG}(\{ h_u^{(1)} : u \in \mathcal{N}(v) \})
-\]
+\end{equation}
 
 \vspace{0.5em}
 
@@ -155,9 +156,9 @@ where $\mathcal{N}(v)$ denotes the set of neighbors of node $v$, $\text{AGG}(\cd
 \vspace{0.5em}
 
 The final node embedding is given by:
-\[
+\begin{equation}
 z_v = h_v^{(2)}
-\]
+\end{equation}
 
 
 \subsection{Shortest-Path Distance}
@@ -173,9 +174,9 @@ Since very large distances are less informative for link prediction, we clamp th
 We also found that passing the distance embedding signal when d = 1 in its raw form caused overfitting because it implies there is an edge with probability one. Hence, we clamped the minimum distance to $D_{min}$. Hence, the distance used in our work is defined in eq. 1.
 
 
-\[
-d(u, v) = \max(\min(d_{raw}(u, v), D_{max}), D_{min})   \hspace{1.5em} (1)
-\] 
+\begin{equation}
+d(u, v) = \max(\min(d_{raw}(u, v), D_{max}), D_{min}) 
+\end{equation}
 
 
 This distance is then used as an additional input to the decoder.
@@ -188,23 +189,23 @@ Instead of using the raw shortest-path distance directly, we map the scalar dist
 \vspace{0.5em}
 
 Given a distance value $d$, we compute a sinusoidal embedding as:
-\[
+\begin{equation}
 \text{SE}(d) = [\cos(d \cdot \omega_1), \dots,  \cos(d \cdot \omega_k), \sin(d \cdot \omega_1),\dots,  \sin(d \cdot \omega_k)]
-\] \hspace{23em} (2)
+\end{equation} 
 
 \vspace{0.5em}
 
 where the frequencies $\omega_i$ are defined as:
-\[
+\begin{equation}
 \omega_i = \exp\left(-\frac{\log(T) \cdot (i - 1)}{k}\right)
-\]
+\end{equation}
 
 \vspace{0.5em}
 
 The sinusoidal embedding is then passed through a multilayer perceptron (MLP) to obtain the final distance embedding:
-\[
+\begin{equation}
 d_{emb} = \text{MLP}(\text{SE}(d)) \hspace{3em} (3)
-\] 
+\end{equation}
 
 \subsection{Distance-Aware Decoders}
 
@@ -221,12 +222,12 @@ As a baseline, we use a standard multilayer perceptron (MLP) decoder that predic
 \vspace{0.5em}
 
 Given embeddings $z_u$ and $z_v$ for nodes $u$ and $v$, we concatenate them and pass them through an MLP:
-\[
+\begin{equation}
 h_{uv} = [z_u \, || \, z_v]
-\]
-\[
+\end{equation}
+\begin{equation}
 \hat{y}_{uv} = \text{MLP}(h_{uv})
-\]
+\end{equation}
 
 \vspace{0.5em}
 
@@ -242,12 +243,12 @@ To incorporate structural information, we extend the baseline decoder by includi
 \vspace{0.5em}
 
 Given the distance $d(u, v)$ between nodes, we concatenate it with the node embeddings:
-\[
+\begin{equation}
 h_{uv} = [z_u \, || \, z_v \, || \, d(u, v)]
-\]
-\[
+\end{equation}
+\begin{equation}
 \hat{y}_{uv} = \text{MLP}(h_{uv})
-\]
+\end{equation}
 
 \vspace{0.5em}
 
@@ -263,16 +264,18 @@ To increase the strength of the distance signal, we first convert the node dista
 This embedding is then concatenated with the node embeddings to generate the input feature vector to the MLP
 \vspace{0.5em}
 
-\[
+\begin{equation}
 h_{uv} = [z'_u \, || \, z'_v || \, d_{emb}]
 \]
-\[
+\begin{equation}
 \hat{y}_{uv} = \text{MLP}(h_{uv})
 \]
 
 \vspace{0.5em}
 
 This design has more signal strength of the shortest path distance but is too simple to capture the complex dependencies between distance, node embeddings and the likelihood of an edge between the nodes.
+
+\vspace{0.5em}
 
 \subsubsection{AdaLN-Zero Distance-Conditioned Decoder}
 
@@ -285,17 +288,17 @@ First, the shortest-path distance $d(u, v)$ is transformed into a high-dimension
 \vspace{0.5em}
 
 This embedding is then used to generate modulation parameters, namely shift and scale:
-\[
+\begin{equation}
 \text{shift}, \text{scale} = f(d_{emb})
 \]
 
 \vspace{0.5em}
 
 The parameters of the final layer of the MLP used to calculate the modulation parameters are initialized to zero such that the AdaLN-Zero conditioning starts as a simple LayerNorm during training. These parameters are used to transform the node embeddings using AdaLN-Zero conditioning. 
-\[
+\begin{equation}
 z'_u = LN(z_u) \cdot (1 + \text{scale}) + \text{shift}
 \]
-\[
+\begin{equation}
 z'_v = LN(z_v) \cdot (1 + \text{scale}) + \text{shift}
 \]
 
@@ -304,12 +307,12 @@ z'_v = LN(z_v) \cdot (1 + \text{scale}) + \text{shift}
 \vspace{0.5em}
 
 The modulated embeddings are then concatenated and passed through a decoder:
-\[
+\begin{equation}
 h_{uv} = [z'_u \, || \, z'_v]
-\]
-\[
+\end{equation}
+\begin{equation}
 \hat{y}_{uv} = \text{MLP}(h_{uv})
-\]
+\end{equation}
 
 \vspace{0.5em}
 
@@ -322,9 +325,9 @@ The model is trained as a binary classification task to distinguish between exis
 \vspace{0.5em}
 
 We have both positive (edge exists between the given nodes) and negative (no edge) samples in the training and test set. We use the binary cross-entropy loss with logits to train the model:
-\[
+\begin{equation}
 \mathcal{L} = - \frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log \sigma(s_i) + (1 - y_i) \log (1 - \sigma(s_i)) \right]
-\]
+\end{equation}
 
 \vspace{0.5em}
 

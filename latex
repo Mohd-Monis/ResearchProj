@@ -11,48 +11,44 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\title{Conference Paper Title*\\
-{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
-should not be used}
+\title{AdaLN-Based Distance-Augmented Link Prediction in Graph Neural Networks\\
+% {\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
+% should not be used}
 }
 
-\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{4\textsuperscript{th} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{6\textsuperscript{th} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
+\author{
+\IEEEauthorblockN{Mohd Monis}
+\IEEEauthorblockA{
+\textit{Department of Computer Science} \\
+\textit{Delhi Technological University} \\
+Delhi, India \\
+email
 }
-
+\and
+\IEEEauthorblockN{Animesh Gupta}
+\IEEEauthorblockA{
+\textit{Department of Computer Science} \\
+\textit{Delhi Technological University} \\
+Delhi, India \\
+email
+}
+\and
+\IEEEauthorblockN{Krishna Agarwal}
+\IEEEauthorblockA{
+\textit{Department of Computer Science} \\
+\textit{Delhi Technological University} \\
+Delhi, India \\
+email
+}
+\and
+\IEEEauthorblockN{Snigdha Agrawal}
+\IEEEauthorblockA{
+\textit{Department of Computer Science} \\
+\textit{Delhi Technological University} \\
+Delhi, India \\
+email
+}
+}
 \maketitle
 
 \begin{abstract}
@@ -96,7 +92,7 @@ Traditional link prediction methods include heuristic approaches such as Common 
 While these methods are effective, they typically rely only on node embeddings and do not explicitly incorporate global structural information such as shortest-path distance. As a result, they may fail to capture important structural patterns that influence link formation.
 
 
-\subsection{Adaptive Normalization and Feature Modulatio}
+\subsection{Adaptive Normalization and Feature Modulation}
 
 Adaptive Layer Normalization-Zero (AdaLN-Zero) was first introduced in the "Scalable Diffusion Models with Transformers" \cite{peebles2023dit} paper as a means to incorporate information from heterogeneous embeddings (timestep and class embeddings). Precursors of AdaLN-Zero have also been used in deep learning to combine multimodal contextual information \cite{perez2018film}. In these methods, embeddings containing external context are used to generate shift and scale parameters that modulate feature representations. This allows the model to adapt its behavior based on contextual information.
 
@@ -105,6 +101,13 @@ Adaptive Layer Normalization-Zero (AdaLN-Zero) was first introduced in the "Scal
 In this work, we apply a variant of AdaLN-Zero in the context of link prediction, where shortest-path distance is used as a conditioning signal to modulate node embeddings before decoding. This allows the decoder to adapt its predictions based on the structural relationship between nodes.
 
 \section{Method}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{Method .jpg}
+\caption{Overview of the proposed method.}
+\label{fig:method}
+\end{figure*}
 
 \subsection{Problem Setup}
 
@@ -515,21 +518,6 @@ Overall, this work highlights the importance of combining node embeddings with g
 % \end{center}
 % \end{table}
 
-\begin{figure}[htbp]
-\centerline{\includegraphics{fig1.png}}
-\caption{Example of a figure caption.}
-\label{fig}
-\end{figure}
-
-Figure Labels: Use 8 point Times New Roman for Figure labels. Use words 
-rather than symbols or abbreviations when writing Figure axis labels to 
-avoid confusing the reader. As an example, write the quantity 
-``Magnetization'', or ``Magnetization, M'', not just ``M''. If including 
-units in the label, present them within parentheses. Do not label axes only 
-with units. In the example, write ``Magnetization (A/m)'' or ``Magnetization 
-\{A[m(1)]\}'', not just ``A/m''. Do not label axes with a ratio of 
-quantities and units. For example, write ``Temperature (K)'', not 
-``Temperature/K''.
 
 
 
@@ -561,12 +549,14 @@ T. N. Kipf and M. Welling,
 ``Variational Graph Auto-Encoders,''
 \textit{arXiv preprint arXiv:1611.07308}, 2016.
 
-
+\vspace{0.5em}
 
 \bibitem{wang2021benchmark}
 X. Wang, Y. Zhang, and W. Zhu,
 ``A Benchmarking Study of Link Prediction in Graph Neural Networks,''
 \textit{arXiv preprint arXiv:2102.12557}, 2021.
+
+\vspace{0.5em}
 
 \bibitem{hamilton2017graphsage}
 W. L. Hamilton, R. Ying, and J. Leskovec,
@@ -574,11 +564,15 @@ W. L. Hamilton, R. Ying, and J. Leskovec,
 in \textit{Advances in Neural Information Processing Systems (NeurIPS)},
 vol. 30, 2017.
 
+\vspace{0.5em}
+
 \bibitem{peebles2023dit}
 W. Peebles and S. Xie,
 ``Scalable Diffusion Models with Transformers,''
 in \textit{Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
 2023.
+
+\vspace{0.5em}
 
 \bibitem{zhang2018seal}
 M. Zhang and Y. Chen,
@@ -586,18 +580,22 @@ M. Zhang and Y. Chen,
 in \textit{Advances in Neural Information Processing Systems (NeurIPS)},
 2018.
 
+\vspace{0.5em}
+
+
 \bibitem{kipf2017gcn}
 T. N. Kipf and M. Welling,
 ``Semi-Supervised Classification with Graph Convolutional Networks,''
 in \textit{International Conference on Learning Representations (ICLR)},
 2017.
+\vspace{0.5em}
 
 \bibitem{liben2007linkprediction}
 D. Liben-Nowell and J. Kleinberg,
 ``The Link Prediction Problem for Social Networks,''
 \textit{Journal of the American Society for Information Science and Technology},
 vol. 58, no. 7, pp. 1019--1031, 2007.
-
+\vspace{0.5em}
 \bibitem{perez2018film}
 E. Perez, F. Strub, H. de Vries, V. Dumoulin, and A. Courville,
 ``FiLM: Visual Reasoning with a General Conditioning Layer,''
@@ -606,7 +604,6 @@ vol. 32, no. 1, 2018.
 
 \end{thebibliography}
 \vspace{12pt}
-\color{red}
-IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
+
 
 \end{document}

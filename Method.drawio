@@ -4,11 +4,8 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="0s6s7St4WRttWTEPf-7q-105" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;" value="" vertex="1">
-          <mxGeometry height="45" width="101" x="559" y="105" as="geometry" />
-        </mxCell>
-        <mxCell id="0s6s7St4WRttWTEPf-7q-104" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="161" x="509" y="220" as="geometry" />
+        <mxCell id="0s6s7St4WRttWTEPf-7q-62" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;" value="" vertex="1">
+          <mxGeometry height="35" width="60" x="610" y="110" as="geometry" />
         </mxCell>
         <mxCell id="0s6s7St4WRttWTEPf-7q-72" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#ae4132;" value="" vertex="1">
           <mxGeometry height="45" width="110" x="900" y="162.5" as="geometry" />
@@ -23,7 +20,11 @@
           <mxGeometry height="60" width="150" x="880" y="25" as="geometry" />
         </mxCell>
         <mxCell id="0s6s7St4WRttWTEPf-7q-61" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="" vertex="1">
+<<<<<<< Updated upstream
           <mxGeometry height="60" width="120" x="664" y="20" as="geometry" />
+=======
+          <mxGeometry height="60" width="120" x="700" y="25" as="geometry" />
+>>>>>>> Stashed changes
         </mxCell>
         <mxCell id="0s6s7St4WRttWTEPf-7q-10" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/management_governance/Resource_Graph_Explorer.svg;" value="" vertex="1">
           <mxGeometry height="70" width="73.28" x="40" y="100" as="geometry" />
@@ -96,6 +97,37 @@
         <mxCell id="0s6s7St4WRttWTEPf-7q-34" parent="1" style="text;whiteSpace=wrap;html=1;" value="&lt;b style=&quot;font-weight:normal;&quot; id=&quot;docs-internal-guid-98a8ad24-7fff-141d-df2c-f8f7852be624&quot;&gt;&lt;span style=&quot;font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;&quot;&gt;h&lt;/span&gt;&lt;span style=&quot;font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;&quot;&gt;&lt;span style=&quot;font-size:0.6em;vertical-align:sub;&quot;&gt;v&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;" vertex="1">
           <mxGeometry height="40" width="50" x="364" y="165" as="geometry" />
         </mxCell>
+<<<<<<< Updated upstream
+=======
+        <mxCell id="0s6s7St4WRttWTEPf-7q-35" edge="1" parent="1" source="0s6s7St4WRttWTEPf-7q-21" style="endArrow=classic;html=1;rounded=0;curved=0;exitX=1;exitY=0;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="590" y="70" />
+              <mxPoint x="590" y="100" />
+            </Array>
+            <mxPoint x="400" y="110" as="sourcePoint" />
+            <mxPoint x="590" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0s6s7St4WRttWTEPf-7q-36" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;curved=0;exitX=1;exitY=0;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="590" y="180" />
+            </Array>
+            <mxPoint x="400" y="180" as="sourcePoint" />
+            <mxPoint x="590" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0s6s7St4WRttWTEPf-7q-37" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=31;" value="+" vertex="1">
+          <mxGeometry height="50" width="40" x="570" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="0s6s7St4WRttWTEPf-7q-38" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="580" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="0s6s7St4WRttWTEPf-7q-47" parent="1" style="text;whiteSpace=wrap;html=1;" value="&lt;b style=&quot;font-weight:normal;&quot; id=&quot;docs-internal-guid-acb73600-7fff-5940-0036-1a6d22d793ca&quot;&gt;&lt;span style=&quot;font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;&quot;&gt;[ h&lt;/span&gt;&lt;span style=&quot;font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;&quot;&gt;&lt;span style=&quot;font-size:0.6em;vertical-align:sub;&quot;&gt;u &lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;&quot;&gt;|| h&lt;/span&gt;&lt;span style=&quot;font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;&quot;&gt;&lt;span style=&quot;font-size:0.6em;vertical-align:sub;&quot;&gt;v&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;&quot;&gt; ]&lt;/span&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="40" width="90" x="610" y="110" as="geometry" />
+        </mxCell>
+>>>>>>> Stashed changes
         <mxCell id="0s6s7St4WRttWTEPf-7q-48" parent="1" style="text;whiteSpace=wrap;html=1;" value="&lt;b style=&quot;font-weight:normal;&quot; id=&quot;docs-internal-guid-23e2a754-7fff-842e-3ae3-3702d0973b9d&quot;&gt;&lt;span style=&quot;font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;&quot;&gt;d&lt;/span&gt;&lt;span style=&quot;font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;&quot;&gt;&lt;span style=&quot;font-size:0.6em;vertical-align:sub;&quot;&gt;u,v&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;" vertex="1">
           <mxGeometry height="40" width="50" x="470" y="330" as="geometry" />
         </mxCell>
@@ -121,7 +153,20 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="0s6s7St4WRttWTEPf-7q-60" parent="1" style="text;whiteSpace=wrap;" value="AdaLN&#xa;γ(d), β(d)" vertex="1">
+<<<<<<< Updated upstream
           <mxGeometry height="50" width="80" x="694" y="25" as="geometry" />
+=======
+          <mxGeometry height="50" width="80" x="730" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="0s6s7St4WRttWTEPf-7q-63" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;curved=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="0s6s7St4WRttWTEPf-7q-61" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="650" y="60" />
+            </Array>
+            <mxPoint x="640" y="110" as="sourcePoint" />
+            <mxPoint x="690" y="60" as="targetPoint" />
+          </mxGeometry>
+>>>>>>> Stashed changes
         </mxCell>
         <mxCell id="0s6s7St4WRttWTEPf-7q-64" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.592;entryY=1.067;entryDx=0;entryDy=0;entryPerimeter=0;curved=1;" target="0s6s7St4WRttWTEPf-7q-61" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
@@ -132,9 +177,24 @@
             <mxPoint x="800" y="170" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+<<<<<<< Updated upstream
         <mxCell id="0s6s7St4WRttWTEPf-7q-66" parent="1" style="text;whiteSpace=wrap;" value="            MLP Decoder&#xa;Linear → ReLU → Linear" vertex="1">
           <mxGeometry height="50" width="170" x="890" y="35" as="geometry" />
         </mxCell>
+=======
+        <mxCell id="0s6s7St4WRttWTEPf-7q-65" parent="1" style="text;whiteSpace=wrap;" value="AdaLN(h, d) = γ(d) * LN(h) + β(d)" vertex="1">
+          <mxGeometry height="40" width="210" x="655" as="geometry" />
+        </mxCell>
+        <mxCell id="0s6s7St4WRttWTEPf-7q-66" parent="1" style="text;whiteSpace=wrap;" value="            MLP Decoder&#xa;Linear → ReLU → Linear" vertex="1">
+          <mxGeometry height="50" width="170" x="890" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="0s6s7St4WRttWTEPf-7q-69" edge="1" parent="1" source="0s6s7St4WRttWTEPf-7q-61" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="0s6s7St4WRttWTEPf-7q-68" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="820" y="60" as="sourcePoint" />
+            <mxPoint x="870" y="10" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+>>>>>>> Stashed changes
         <mxCell id="0s6s7St4WRttWTEPf-7q-71" parent="1" style="text;whiteSpace=wrap;" value="      σ(score)&#xa;Link Probability" vertex="1">
           <mxGeometry height="50" width="110" x="910" y="160" as="geometry" />
         </mxCell>
@@ -164,6 +224,7 @@
         <mxCell id="0s6s7St4WRttWTEPf-7q-78" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;rotation=-105;fontColor=#FF3333;" value="Predicted Edge" vertex="1">
           <mxGeometry height="30" width="90" y="170" as="geometry" />
         </mxCell>
+<<<<<<< Updated upstream
         <mxCell id="0s6s7St4WRttWTEPf-7q-79" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="680" y="20" as="sourcePoint" />
@@ -239,6 +300,8 @@
             <mxPoint x="880" y="90" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+=======
+>>>>>>> Stashed changes
       </root>
     </mxGraphModel>
   </diagram>

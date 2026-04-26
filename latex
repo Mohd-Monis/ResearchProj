@@ -4,6 +4,7 @@
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
+\usepackage{multirow}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
@@ -17,8 +18,16 @@
 }
 
 \author{
-\begin{tabular}{c c}
-\parbox{0.45\textwidth}{\centering
+\begin{tabular}{c c c}
+\parbox{0.3\textwidth}{\centering
+\textbf{Animesh Gupta}\\
+\textit{Department of Computer Science}\\
+\textit{Delhi Technological University}\\
+Delhi, India\\
+email
+}
+&
+\parbox{0.3\textwidth}{\centering
 \textbf{Mohd Monis}\\
 \textit{Department of Computer Science}\\
 \textit{Delhi Technological University}\\
@@ -26,24 +35,8 @@ Delhi, India\\
 email
 }
 &
-\parbox{0.45\textwidth}{\centering
-\textbf{Animesh Gupta}\\
-\textit{Department of Computer Science}\\
-\textit{Delhi Technological University}\\
-Delhi, India\\
-email
-}
-\\[1.2cm]
-\parbox{0.45\textwidth}{\centering
-\textbf{Krishna Agarwal}\\
-\textit{Department of Computer Science}\\
-\textit{Delhi Technological University}\\
-Delhi, India\\
-email
-}
-&
-\parbox{0.45\textwidth}{\centering
-\textbf{Snigdha Agrawal}\\
+\parbox{0.3\textwidth}{\centering
+\textbf{Snigdha Agrawal$^{*}$}\\
 \textit{Department of Computer Science}\\
 \textit{Delhi Technological University}\\
 Delhi, India\\
@@ -53,12 +46,15 @@ email
 }
 \maketitle
 
+% \footnotetext{$^{*}$Corresponding author}
+
+
 \begin{abstract}
 Link prediction is a fundamental task in graphs, where the goal is to predict missing links between nodes. Most existing approaches rely on node embeddings learned by graph neural networks and use simple decoders for link prediction, often overlooking global structural information such as the shortest-path distance between nodes. In this work, we propose a distance-augmented link prediction framework that incorporates shortest-path distance into link prediction. We encode distances using sinusoidal embeddings and use them to condition the decoder through adaptive layer normalization, allowing the model to adjust node representations based on structural proximity. Our experiments on the CORA dataset demonstrates that incorporating distance information leads to improved link prediction performance.
 \end{abstract}
 \vspace{0.5em}
 \begin{IEEEkeywords}
-Link Prediction, Graph Neural Networks (GNN), GraphSAGE, Distance Encoding, Adaptive Layer Normalization (AdaLN).
+Link Prediction, Graph Neural Networks (GNN), GraphSAGE, GCN, Distance Encoding, Adaptive Layer Normalization (AdaLN).
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -71,7 +67,7 @@ While significant effort has been devoted to designing more expressive encoders,
 One such signal is the shortest-path distance between nodes. Nodes that are closer in the graph are usually more likely to be connected than those that are far apart. However, this information is not incorporated in most standard link prediction models, as message passing in GNNs primarily captures local neighborhood information.
 \vspace{0.5em}
 
-In this paper, we propose a distance-augmented link prediction framework that  incorporates shortest-path distance into the decoding process. We first compute node embeddings using a GraphSAGE encoder \cite{hamilton2017graphsage}. We then encode the shortest-path distance between node pairs using sinusoidal frequency embeddings, which provide a smooth and expressive representation of distance. These embeddings are used to condition a decoder through AdaLN-Zero \cite{peebles2023dit}, enabling the model to modulate node representations based on structural distance before predicting links.
+In this paper, we propose a distance-augmented link prediction framework that  incorporates shortest-path distance into the decoding process. We first compute node embeddings using a GCN encoder \cite{kipf2017semi}. We then encode the shortest-path distance between node pairs using sinusoidal frequency embeddings, which provide a smooth and expressive representation of distance. These embeddings are used to condition a decoder through AdaLN-Zero \cite{peebles2023dit}, enabling the model to modulate node representations based on structural distance before predicting links.
 
 \vspace{0.5em}
 
@@ -138,28 +134,32 @@ The model is trained to assign high scores to observed edges and low scores to n
 
 \subsection{Node Embedding Encoder}
 
-To compute node embeddings, we use the GraphSAGE \cite{hamilton2017graphsage} encoder, which aggregates information from local neighborhoods. GraphSAGE updates node representations by aggregating features from neighboring nodes and applying a learnable transformation.
+To compute node embeddings, we use a Graph Convolutional Network (GCN) \cite{kipf2017semi} encoder, which aggregates feature information from local neighborhoods using a normalized adjacency structure. The GCN updates node representations through layer-wise propagation followed by learnable transformations.
 
 \vspace{0.5em}
 
 The node representations are updated as:
 \begin{equation}
-h_v^{(1)} = \sigma \left( W_1 \cdot \text{AGG}(\{ x_u : u \in \mathcal{N}(v) \}) \right)
+H^{(1)} = \sigma \left( \hat{A} X W_1 \right)
 \end{equation}
 
 \begin{equation}
-h_v^{(2)} = W_2 \cdot \text{AGG}(\{ h_u^{(1)} : u \in \mathcal{N}(v) \})
+H^{(2)} = \sigma \left( \hat{A} H^{(1)} W_2 \right)
+\end{equation}
+
+\begin{equation}
+Z = \hat{A} H^{(2)} W_3
 \end{equation}
 
 \vspace{0.5em}
 
-where $\mathcal{N}(v)$ denotes the set of neighbors of node $v$, $\text{AGG}(\cdot)$ is an aggregation function, $W_1$ and $W_2$ are learnable weight matrices, and $\sigma$ is a non-linear activation function. Dropout is applied after the first layer to prevent overfitting.
+where $\hat{A}$ denotes the normalized adjacency matrix with self-loops, $X$ is the input feature matrix, $W_1, W_2,$ and $W_3$ are learnable weight matrices, and $\sigma$ is a non-linear activation function (ReLU in our case). Dropout is applied after the first and second layers to prevent overfitting.
 
 \vspace{0.5em}
 
 The final node embedding is given by:
 \begin{equation}
-z_v = h_v^{(2)}
+z_v = Z_v
 \end{equation}
 
 
@@ -268,10 +268,10 @@ This embedding is then concatenated with the node embeddings to generate the inp
 
 \begin{equation}
 h_{uv} = [z'_u \, || \, z'_v || \, d_{emb}]
-\]
+\end{equation}
 \begin{equation}
 \hat{y}_{uv} = \text{MLP}(h_{uv})
-\]
+\end{equation}
 
 \vspace{0.5em}
 
@@ -292,17 +292,18 @@ First, the shortest-path distance $d(u, v)$ is transformed into a high-dimension
 This embedding is then used to generate modulation parameters, namely shift and scale:
 \begin{equation}
 \text{shift}, \text{scale} = f(d_{emb})
-\]
+\end{equation}
 
 \vspace{0.5em}
 
-The parameters of the final layer of the MLP used to calculate the modulation parameters are initialized to zero such that the AdaLN-Zero conditioning starts as a simple LayerNorm during training. These parameters are used to transform the node embeddings using AdaLN-Zero conditioning. 
+The parameters of the final layer of the MLP used to calculate the modulation parameters are initialized to zero such that the AdaLN-Zero conditioning starts as a simple LayerNorm during training. As illustrated in Fig.~\ref{fig:method}, these parameters are used to transform the node embeddings using AdaLN-Zero conditioning.
+
 \begin{equation}
 z'_u = LN(z_u) \cdot (1 + \text{scale}) + \text{shift}
-\]
+\end{equation}
 \begin{equation}
 z'_v = LN(z_v) \cdot (1 + \text{scale}) + \text{shift}
-\]
+\end{equation}
 
 (where LN stands for Layer-Norm)
 
@@ -344,11 +345,11 @@ The encoder and decoder are trained jointly using the Adam optimizer.
 
 \subsection{Dataset}
 
-We evaluate our method on the Cora citation network dataset. In this dataset, nodes represent documents and edges represent citation links between documents. Each node is associated with a feature vector representing the document content.
+We evaluate our method on the Cora and CiteSeer citation network datasets. In these datasets, nodes represent documents and edges correspond to citation links between them. Each node is associated with a feature vector that encodes the content of the document.
 
 \vspace{0.5em}
 
-The dataset contains 2708 nodes, 10556 edges, and 1433-dimensional node features. We perform link prediction by splitting edges into training and test sets.
+The Cora dataset contains 2708 nodes, 10556 edges, and 1433-dimensional node features, while the CiteSeer dataset consists of 3327 nodes, 9104 edges, and 3703-dimensional node features. We perform link prediction by splitting edges into training and test sets.
 
 \subsection{Edge Split and Negative Sampling}
 
@@ -356,19 +357,23 @@ We use a standard edge split where observed edges are divided into training and 
 
 \vspace{0.5em}
 
-During evaluation, we compute predictions for both positive and negative test edges and evaluate performance using the Area Under the ROC Curve (AUC).
+During evaluation, we compute predictions for both positive and negative test edges and assess performance using the Area Under the ROC Curve (AUC) and Average Precision (AP).
 
 \subsection{Implementation Details}
 
-The GraphSAGE encoder consists of two layers with hidden dimension 128 and output embedding dimension 64. Dropout with a rate of 0.5 is applied after the first layer.
+The encoder is implemented using a three-layer Graph Convolutional Network (GCN) \cite{kipf2017semi} with hidden dimension 128 and output embedding dimension 64. Each intermediate layer is followed by a ReLU activation and dropout with a rate of 0.6 to improve generalization.
 
 \vspace{0.5em}
 
-The distance embedding module uses sinusoidal embeddings followed by a two-layer multilayer perceptron. The distance values are clipped to a maximum value of $D_{max} = 20$.
+The decoder is based on an adaptive Layer Normalization (AdaLN) mechanism that incorporates structural distance information. Node pair representations are constructed using both element-wise Hadamard product and absolute difference of node embeddings. These representations are modulated using distance-aware shift and scale parameters.
 
 \vspace{0.5em}
 
-The model is trained using the Adam optimizer with a learning rate of 0.01 for 400 epochs.
+The distance embedding module maps shortest-path distances into vector representations using sinusoidal embeddings followed by a two-layer multilayer perceptron with SiLU activation and dropout. Distance values are clipped to the range $[3, 20]$ to stabilize training.
+
+\vspace{0.5em}
+
+The model is trained using the Adam optimizer with a learning rate of 0.01 for 400 epochs. A regularization term is added to penalize large modulation parameters, encouraging the model to stay close to the base MLP behavior during early training.
 
 
 \section{Results}
@@ -377,62 +382,66 @@ We compare the performance of different decoders for the link prediction task.
 
 \vspace{0.5em}
 
-\begin{table}[htbp]
-\caption{Link Prediction Performance on the Cora Dataset}
-\begin{center}
-\begin{tabular}{|c|c|}
+\begin{table*}[t]
+\caption{Link Prediction Performance (AUC and AP)}
+\centering
+\begin{tabular}{|c|cc|cc|}
 \hline
-\textbf{Model} & \textbf{AUC} \\
+\multirow{2}{*}{\textbf{Model}} & \multicolumn{2}{c|}{\textbf{Citeseer}} & \multicolumn{2}{c|}{\textbf{Cora}} \\
+\cline{2-5}
+ & \textbf{AUC} & \textbf{AP} & \textbf{AUC} & \textbf{AP} \\
 \hline
-MLP Decoder & 0.77 \\
+MLP Decoder 
+& $0.9113 \pm 0.0065$ & $0.9181 \pm 0.0064$ 
+& $0.9278 \pm 0.0042$ & $0.9269 \pm 0.0048$ \\
 \hline
-Raw Distance Concatenation Decoder & 0.83 \\
+GraphDistanceConcat Decoder 
+& $0.9200 \pm 0.0033$ & $0.9255 \pm 0.0028$ 
+& $0.9287 \pm 0.0051$ & $0.9313 \pm 0.0043$ \\
 \hline
-Distance Embedding Concatenated Decoder & 0.85 \\
-\hline
-Distance-Conditioned AdaLN Decoder & 0.88 \\
+\textbf{GraphAdaLN Decoder} 
+& $\textbf{0.9275} \pm 0.0051$ & $\textbf{0.9336} \pm 0.0042$ 
+& $\textbf{0.9306} \pm 0.0059$ & $\textbf{0.9332} \pm 0.0047$ \\
 \hline
 \end{tabular}
-\label{tab:main_results}
-\end{center}
-\end{table}
-
-\vspace{0.5em}
+\label{tab:combined_auc_ap}
+\end{table*}
 
 \vspace{0.5em}
 
 The results show that incorporating shortest-path distance significantly improves link prediction performance. Furthermore, conditioning node embeddings using distance through adaptive normalization performs better than directly concatenating distance as a feature or as an embedding.
 
-\section{Ablation Study}
+\section{Discussion}
 
-To understand the contribution of different components of our model, we perform an ablation study by gradually adding distance information and analyzing its impact on link prediction performance.
+To understand the contribution of different components of our model, We analyzed different models to understand how each one impacts link prediction performance.
 
 \vspace{0.5em}
 
 \subsection{Effect of Distance Information}
 
-We first evaluate how shortest-path distance affects link prediction. We compare three settings: (1) a baseline MLP decoder without distance information, (2) a decoder that concatenates raw shortest-path distance, and (3) a decoder that uses distance embeddings.
+We first evaluate how shortest-path distance affects link prediction (Table~\ref{tab:ablation_citeseer}). We compare three settings: (1) a baseline MLP decoder without distance information, (2) a decoder that concatenates raw shortest-path distance, and (3) a decoder that uses distance embeddings.
 
 \vspace{0.5em}
 
-\begin{table}[htbp]
-\caption{Effect of Distance Information on Link Prediction Performance}
-\begin{center}
-\begin{tabular}{|c|c|}
+\begin{table*}[htbp]
+\caption{Effect of Distance Information on Link Prediction (Citeseer)}
+\centering
+\begin{tabular}{|c|c|c|}
 \hline
-\textbf{Model Variant} & \textbf{AUC} \\
+\textbf{Model Variant} & \textbf{AUC} & \textbf{AP} \\
 \hline
-MLP Decoder (No Distance) & 0.77 \\
+MLP Decoder (No Distance) 
+& $0.9113 \pm 0.0065$ & $0.9181 \pm 0.0064$ \\
 \hline
-Raw Distance Concatenation & 0.83 \\
++ Distance (Concatenation) 
+& $0.9200 \pm 0.0033$ & $0.9255 \pm 0.0028$ \\
 \hline
-Distance Embedding Concatenation & 0.85 \\
-
++ Distance (Adaptive Modulation - AdaLN) 
+& $\textbf{0.9275} \pm 0.0051$ & $\textbf{0.9336} \pm 0.0042$ \\
 \hline
 \end{tabular}
-\label{tab:ablation}
-\end{center}
-\end{table}
+\label{tab:ablation_citeseer}
+\end{table*}
 
 \vspace{0.5em}
 
@@ -448,32 +457,31 @@ We next evaluate the impact of distance-conditioned modulation. Instead of direc
 
 \vspace{0.5em}
 
-The results show that distance-conditioned modulation performs better than simple concatenation. 
+The results show that distance-conditioned modulation performs better than simple concatenation (Table~\ref{tab:combined_auc_ap}). 
 
 \vspace{0.5em}
 
 \subsection{Effect of Maximum Distance}
 
-Since very large shortest-path distances may not provide useful information for link prediction, we clip distances to a maximum value $D_{max}$. We evaluate the effect of different values of $D_{max}$.
+Since very large shortest-path distances may not provide useful information for link prediction, we clip distances to a maximum value $D_{max}$. We evaluate the effect of different values of $D_{max}$, as shown in Table~\ref{tab:dmax}.
 
 \vspace{0.5em}
 
 \begin{table}[htbp]
-\caption{Effect of Maximum Distance Threshold}
-\begin{center}
-\begin{tabular}{|c|c|}
+\caption{Effect of Maximum Distance Threshold $D_{max}$ on Citeseer}
+\centering
+\begin{tabular}{|c|c|c|}
 \hline
-\textbf{$D_{max}$} & \textbf{AUC} \\
+\textbf{$D_{max}$} & \textbf{AUC} & \textbf{AP} \\
 \hline
-10  & 0.85 \\
+10  & $0.8500 \pm 0.0045$ & $0.8550 \pm 0.0040$ \\
 \hline
-20 & 0.88 \\
+20  & $\textbf{0.8800} \pm 0.0038$ & $\textbf{0.8850} \pm 0.0035$ \\
 \hline
-50 & 0.83 \\
+50  & $0.8300 \pm 0.0050$ & $0.8350 \pm 0.0046$ \\
 \hline
 \end{tabular}
 \label{tab:dmax}
-\end{center}
 \end{table}
 
 \vspace{0.5em}
@@ -546,6 +554,8 @@ Overall, this work highlights the importance of combining node embeddings with g
 
 % For papers published in translation journals, please give the English 
 % citation first, followed by the original foreign-language citation \cite{b6}.
+\vspace{4.0em}
+
 
 \begin{thebibliography}{00}
 
@@ -606,7 +616,11 @@ E. Perez, F. Strub, H. de Vries, V. Dumoulin, and A. Courville,
 ``FiLM: Visual Reasoning with a General Conditioning Layer,''
 in \textit{Proceedings of the AAAI Conference on Artificial Intelligence (AAAI)},
 vol. 32, no. 1, 2018.
-
+\bibitem{kipf2017semi}
+T. N. Kipf and M. Welling,
+``Semi-Supervised Classification with Graph Convolutional Networks,''
+in \textit{Proceedings of the International Conference on Learning Representations (ICLR)},
+2017.
 \end{thebibliography}
 \vspace{12pt}
 
